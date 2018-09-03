@@ -108,6 +108,8 @@ function show(){
             /**
              * 按照时间和状态来查询订单
              */
+
+             console.log(order_number == "");
     
             if (order_number == "") {
 
@@ -121,39 +123,43 @@ function show(){
                         
                         console.log(select_date_status_content);
 
-                        if (select_date_status_content.data.length == null) {
+                        if (select_date_status_content.data.length == 0) {
                             alert("没有订单，请刷新")
                         } else {
 
-                            // var content = {}; //data中单个的数据
+                            console.log("bfkjabfjakfa" + select_date_status_content.data.length);
+
                             for (var i=0;i<select_date_status_content.data.length;i++) {
-                                var content = {};  //重新创建一个新的对象
-                                content.createTime = select_date_status_content.data[i].createTime;
-                                content.orderNo = select_date_status_content.data[i].orderItemVoList[0].orderNo;
-                                content.address = select_date_status_content.data[i].orderItemVoList[0].pack.address;
-                                content.code = select_date_status_content.data[i].orderItemVoList[0].pack.code;
-                                content.name = select_date_status_content.data[i].orderItemVoList[0].pack.name;
-                                content.receiverAddress =
-                                    select_date_status_content.data[i].shipping['receiverLargeArea'] +
-                                    select_date_status_content.data[i].shipping['receiverMediumArea'] +
-                                    select_date_status_content.data[i].shipping['receiverDoor'];
-                                content.receiverMobile = select_date_status_content.data[i].shipping['receiverMobile'];
-                                content.exceptTime = select_date_status_content.data[i].orderItemVoList[0].pack.exceptTime;
-                                content.orderCount = select_date_status_content.data[i].orderCount;
+
+                                var content_data = {};  //重新创建一个新的对象
+                                console.log("---------"  +select_date_status_content.data[i].shipping);
+
+                                content_data.createTime = select_date_status_content.data[i].createTime;
+                                content_data.orderNo = select_date_status_content.data[i].orderItemVoList[0].orderNo;
+                                content_data.address = select_date_status_content.data[i].orderItemVoList[0].pack.address;
+                                content_data.code = select_date_status_content.data[i].orderItemVoList[0].pack.code;
+                                content_data.name = select_date_status_content.data[i].orderItemVoList[0].pack.name;
+                                content_data.receiverAddress =
+                                    select_date_status_content.data[i].shipping.receiverLargeArea +
+                                    select_date_status_content.data[i].shipping.receiverMediumArea +
+                                    select_date_status_content.data[i].shipping.receiverDoor;
+                                content_data.receiverMobile = select_date_status_content.data[i].shipping['receiverMobile'];
+                                content_data.exceptTime = select_date_status_content.data[i].orderItemVoList[0].pack.exceptTime;
+                                content_data.orderCount = select_date_status_content.data[i].orderCount;
 
 
                                 if (select_date_status_content.data[i].status == 10) {
-                                    content.status = "已下单";
+                                    content_data.status = "已下单";
                                 } else if (select_date_status_content.data[i].status == 20) {
-                                    content.status = "已接单";
+                                    content_data.status = "已接单";
                                 } else {
-                                    content.status = "已签收";
+                                    content_data.status = "已签收";
                                 }
 
-                                content.modify_status = content.status;
+                                content_data.modify_status = content_data.status;
                                 
-                                data1[i] = content;
-                                console.log(JSON.stringify(content));
+                                data1[i] = content_data;
+                                // console.log(JSON.stringify(content_data));
                             }
 
                             console.log("data1：")
@@ -187,41 +193,47 @@ function show(){
     
                     if (4 === order_detail_Http.readyState && 200 === order_detail_Http.status) {
                         // console.log(order_detail_Http.responseText);
-                        console.log(JSON.parse(order_detail_Http.responseText));
 
-                        let content = {}; //data中单个的数据
+                        console.log(JSON.parse(order_detail_Http.responseText));    
     
                         order_detail_content = JSON.parse(order_detail_Http.responseText);
 
-                        content.createTime = order_detail_content.data.createTime;
-                        content.orderNo = order_detail_content.data.orderNo;
-                        content.address = order_detail_content.data.orderItemVoList[0].pack.address;
-                        content.code = order_detail_content.data.orderItemVoList[0].pack.code;
-                        content.name = order_detail_content.data.orderItemVoList[0].pack.name;
-                        content.receiverAddress = 
+
+                        let content_data = {}; //data中单个的数据
+
+                        content_data.createTime = order_detail_content.data.createTime;
+                        content_data.orderNo = order_detail_content.data.orderNo;
+                        content_data.address = order_detail_content.data.orderItemVoList[0].pack.address;
+                        content_data.code = order_detail_content.data.orderItemVoList[0].pack.code;
+                        content_data.name = order_detail_content.data.orderItemVoList[0].pack.name;
+                        content_data.receiverAddress =
                             order_detail_content.data.shipping['receiverLargeArea'] +
-                            order_detail_content.data.shipping['receiverMediumArea'] + 
+                            order_detail_content.data.shipping['receiverMediumArea'] +
                             order_detail_content.data.shipping['receiverDoor'];
-                            content.receiverMobile = order_detail_content.data.shipping['receiverMobile'];
-                            content.exceptTime = order_detail_content.data.orderItemVoList[0].pack.exceptTime;
-                            content.orderCount = order_detail_content.data.orderCount;
+                        content_data.receiverMobile = order_detail_content.data.shipping['receiverMobile'];
+                        content_data.exceptTime = order_detail_content.data.orderItemVoList[0].pack.exceptTime;
+                        content_data.orderCount = order_detail_content.data.orderCount;
 
 
-                            if (order_detail_content.data.status == 10) {
-                                content.status = "已下单";
-                            } else if (order_detail_content.data.status == 20) {
-                                content.status = "已接单";
-                            } else {
-                                content.status = "已签收";
-                            }
+                        if (order_detail_content.data.status == 10) {
+                            content_data.status = "已下单";
+                        } else if (order_detail_content.data.status == 20) {
+                            content_data.status = "已接单";
+                        } else {
+                            content_data.status = "已签收";
+                        }
 
-                            content.modify_status = content.status;
+                        content_data.modify_status = content_data.status;
 
-                            data1[0] = content;
+                        data1[0] = content_data;
+
+                        console.log(data1);
+
+                        data = data1;
+
                         
-                            console.log(data1);
-
-                            data = data1;
+                    } else {
+                        alert("没有该订单，请重新刷新")
                     }
                 }
     
@@ -248,7 +260,8 @@ function show(){
     setTimeout(function () {
 
         console.log("开始打印数据")
-        console.log("开始将data数据处理为:" + data);
+        console.log(data);
+        console.log("开始将data数据处理");
         var Data = json_change(data);  //将json转换为二维数组
         console.log(Data);
 
@@ -256,6 +269,7 @@ function show(){
         // 循环数据进行输出
         var content = document.getElementsByClassName("consult_middle_content")[0];
         var content_ul = document.getElementsByClassName("order")[0];
+        console.log(Data[0]);
         var num = Data[0].length - 1;
         var array_li = new Array();
         var array_ul = new Array();
