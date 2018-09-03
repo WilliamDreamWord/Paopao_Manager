@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+    <form id="consult_top" method="get">
+        <div class="content1">
+            <span>订单类型：</span>
+            <select name="consult" id="order_type" class="content1_list" onclick="selectFocus()">
+                <option>快递订单</option>
+            </select>
+        </div>
+        <div class="content1">
+            <span>订单区域：</span>
+            <select name="consult" id="order_area" class="content1_list" onclick="selectFocus()">
+                <option>西南大学</option>
+            </select>
+        </div>
+        <div class="content1">
+            <span>订单状态：</span>
+            <select name="consult" id="order_status" class="content1_list" onclick="selectFocus()">
+                <option>已下单</option>
+                <option>已接单</option>
+                <option>已签收</option>
+            </select>
+        </div>
+        <div class="content1">
+            <span>订单编号：</span>
+            <input id="order_number" type="number" name="content">
+        </div>
+        <div class="content1">
+            <span>收货电话：</span>
+            <input id="order_phone" type="number" name="content">
+        </div>
+        <!-- 查询日期 -->
+        <div class="content1">
+            <span>日期：</span>
+            <select id="date_year" name="consult1" class="content1_list_date">
+                
+            </select>
+            <select id="date_month" name="consult1" class="content1_list_date">
+
+            </select>
+            <select id="date_day" name="consult1" class="content1_list_date">
+
+            </select>
+        </div>
+        
+        <button type="submit" value="查询" class="btn" onclick="show()">查询</button>
+    </form>
+
+    <div class="consult_middle">
+        <ul class="order">
+            <li style="width:7%">下单日期</li>
+            <li style="width:7%">订单编号</li>
+            <li>快递地址</li>
+            <li>提货码</li>
+            <li style="width:7%">提货名</li>
+            <li>收货地址</li>
+            <li>收货电话</li>
+            <li>收货时间</li>
+            <li style="width:7%">下单次数</li>
+            <li>订单状态</li>
+            <li>修改订单状态</li>
+        </ul>
+        
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>

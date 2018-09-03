@@ -1,0 +1,106 @@
+li{
+    list-style: none;
+    /* display:inline-block; */
+}
+*{
+    margin:0;
+    padding:0;
+}
+
+#consult_top{
+    width:500px;
+    height:400px;
+    position: relative;
+    overflow: hidden;
+}
+.content1{
+    height:30px;
+    margin-top:20px;
+    margin-left:20px;
+}
+.content1 span{
+    float:left;
+    width: 80px;
+    height:28px;
+    line-height: 28px;
+    border:1px solid #999999;
+}
+.content1 input{
+    height:100%;
+    width:300px;
+    margin-left:30px;
+    text-align:center;
+    text-align-last:center;
+    font-size:18px;
+}
+
+/* 设置select的样式 */
+.content1_list{
+    height:100%;
+    width:300px;
+    margin-left:30px;
+    text-align:center;
+    text-align-last:center;
+    font-size:18px;
+}
+
+/* 设置select,date的样式 */
+.content1_list_date{
+    float:left;
+    height:100%;
+    width:80px;
+    margin-left:30px;
+    text-align:center;
+    text-align-last:center;
+    font-size:18px;
+}
+
+/* 设置option的字体大小 */
+.content1_list option{
+    font-size:18px;
+}
+
+/* 设置查询按钮的样式 */
+.btn{
+    position:relative;
+    top:30px;
+    left:20px;
+    width:150px;
+    height:35px;
+    text-align:center;
+    line-height:35px;
+    font-size:17px;
+    border-radius: 4px;
+    box-shadow:3px 3px 10px #AAA;
+    cursor: pointer;
+}
+
+/* 设置下面快递单的样式 */
+.consult_middle{
+    position:relative;
+    margin-top:30px;
+    margin-left:20px;
+}
+.order{ 
+    border-top:1px solid #AAA;
+    height:60px;
+    width:100%;
+    font-size:12px;
+}
+.order li{
+    width:7%;
+    float:left;
+    margin-right:10px;
+}
+.order button{
+    width:7%;
+    float:left;
+    margin-top: 2px;
+    margin-right:10px;
+}
+.btn_modify{
+    float: left;
+    width: 80px;
+    height: 24px;
+
+}
