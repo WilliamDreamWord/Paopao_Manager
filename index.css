@@ -80,6 +80,11 @@ li{
     position:relative;
     margin-top:30px;
     margin-left:20px;
+    width:100%;
+    overflow-x:auto;
+}
+.consult_middle_content{
+    width:1500px;
 }
 .order{ 
     border-top:1px solid #AAA;
@@ -88,12 +93,12 @@ li{
     font-size:12px;
 }
 .order li{
-    width:7%;
+    width:120px;
     float:left;
     margin-right:10px;
 }
 .order button{
-    width:8%;
+    width:120px;
     float:left;
     margin-top: 2px;
     margin-right:10px;

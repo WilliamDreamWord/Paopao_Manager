@@ -11,19 +11,19 @@
     <form id="consult_top" method="get">
         <div class="content1">
             <span>订单类型：</span>
-            <select name="consult" id="order_type" class="content1_list" onclick="selectFocus()">
+            <select name="consult" id="order_type" class="content1_list">
                 <option>快递订单</option>
             </select>
         </div>
         <div class="content1">
             <span>订单区域：</span>
-            <select name="consult" id="order_area" class="content1_list" onclick="selectFocus()">
+            <select name="consult" id="order_area" class="content1_list">
                 <option>西南大学</option>
             </select>
         </div>
         <div class="content1">
             <span>订单状态：</span>
-            <select name="consult" id="order_status" class="content1_list" onclick="selectFocus()">
+            <select name="consult" id="order_status" class="content1_list">
                 <option>已下单</option>
                 <option>已接单</option>
                 <option>已签收</option>
@@ -55,19 +55,22 @@
     </form>
 
     <div class="consult_middle">
-        <ul class="order">
-            <li style="width:7%">下单日期</li>
-            <li style="width:7%">订单编号</li>
-            <li>快递地址</li>
-            <li>提货码</li>
-            <li style="width:7%">提货名</li>
-            <li>收货地址</li>
-            <li>收货电话</li>
-            <li>收货时间</li>
-            <li style="width:7%">下单次数</li>
-            <li>订单状态</li>
-            <li>修改订单状态</li>
-        </ul>
+        <div class="consult_middle_content">
+            <ul class="order">
+                <li>下单日期</li>
+                <li>订单编号</li>
+                <li>快递地址</li>
+                <li>提货码</li>
+                <li>提货名</li>
+                <li>收货地址</li>
+                <li>收货电话</li>
+                <li>收货时间</li>
+                <li>下单次数</li>
+                <li>订单状态</li>
+                <li>修改订单状态</li>
+            </ul>
+        </div>
+
         
     </div>
     <script type="text/javascript" src="index.js"></script>

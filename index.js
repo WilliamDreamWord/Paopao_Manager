@@ -89,6 +89,7 @@ function show(){
 
     // 4. 设置请求头
     xmlLoginHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlLoginHttp.setRequestHeader('Access-Control-Allow-Headers', '*');
   
     // 5. 发送
     xmlLoginHttp.send('username=test&password=test'); //请求体body，用&分隔。引用：req.body.name
@@ -253,7 +254,7 @@ function show(){
 
         // console.log(data[0][10]);
         // 循环数据进行输出
-        var content = document.getElementsByClassName("consult_middle")[0];
+        var content = document.getElementsByClassName("consult_middle_content")[0];
         var content_ul = document.getElementsByClassName("order")[0];
         var num = Data[0].length - 1;
         var array_li = new Array();
@@ -270,9 +271,9 @@ function show(){
             for (i = 0; i < num; i++) {    //对数据进行循环输出
                 array_li[i] = document.createElement("li");
                 array_li[i].innerHTML = Data[y][i];
-                if (i == 1 || i == 4 || i == 8) {
-                    array_li[i].style["width"] = 7 + "%";
-                }
+                // if (i == 1 || i == 4 || i == 8) {
+                //     array_li[i].style["width"] = 7 + "%";
+                // }
                 array_ul[y].appendChild(array_li[i]);
             }
 
