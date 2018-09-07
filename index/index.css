@@ -1,0 +1,31 @@
+.index {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -200px;
+
+    width: 400px;
+    height: 220px;
+    padding: 13px;
+
+    border-radius: 10px;
+    text-align: center;
+}
+#btn_order, #btn_feedback, #btn_candidate {
+    font-size: 14px;
+    font-family: 宋体;
+ 
+    width: 120px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+ 
+    color: white;
+    background-color: #3BD9FF;
+    border-radius: 6px;
+    border: 0;
+}
+
+
+
