@@ -113,9 +113,12 @@ function show() {
                                 } else {
                                     var content_data = {};  //重新创建一个新的对象
 
-                                    content_data.createTime = select_date_status_content.data[i].createTime;
+                                    content_data.createTime = select_date_status_content.data[i].orderItemVoList[0].pack.detail;
+                                    if (content_data.createTime == "") {
+                                        content_data.createTime = "备注为空";
+                                    }
                                     content_data.orderNo = select_date_status_content.data[i].orderItemVoList[0].orderNo;
-                                    content_data.address = select_date_status_content.data[i].orderItemVoList[0].pack.address;
+                                    content_data.address = select_date_status_content.data[i].orderItemVoList[0].pack.phoneMessage;
                                     content_data.code = select_date_status_content.data[i].orderItemVoList[0].pack.code;
                                     content_data.name = select_date_status_content.data[i].orderItemVoList[0].pack.name;
 
@@ -192,9 +195,12 @@ function show() {
                         } else {
                             let content_data = {}; //data中单个的数据
 
-                            content_data.createTime = order_detail_content.data.createTime;
+                            content_data.createTime = order_detail_content.data.orderItemVoList[0].pack.detail;
+                            if (content_data.createTime == "") {
+                                content_data.createTime = "改备注为空";
+                            }
                             content_data.orderNo = order_detail_content.data.orderNo;
-                            content_data.address = order_detail_content.data.orderItemVoList[0].pack.address;
+                            content_data.address = order_detail_content.data.orderItemVoList[0].pack.phoneMessage;
                             content_data.code = order_detail_content.data.orderItemVoList[0].pack.code;
                             content_data.name = order_detail_content.data.orderItemVoList[0].pack.name;
                             content_data.receiverAddress =
@@ -332,6 +338,7 @@ function show() {
                                     }
                                 }
                             }
+
                             content.getElementsByTagName("ul")[a + 1].getElementsByTagName("li")[num - 1].innerHTML = state[index_state + 1];   //同步显示列表中数据
 
                             change_id = Data[a][1];
@@ -373,6 +380,7 @@ function show() {
 
                             // 5. 发送
                             change_status_Http.send('orderNo=' + change_id + '&status=' + change_status); //请求体body，用&分隔。引用：req.body.name
+
                         }
 
 

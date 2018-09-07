@@ -67,6 +67,8 @@ function login() {
                 } else {
                     alert("请输入正确的用户名和密码");
                 }
+            }else if (4 == xmlLoginHttp.readyState && xmlLoginHttp.status == 500) {
+                alert("请输入正确的用户名和密码")
             }
 
 
