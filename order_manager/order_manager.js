@@ -119,6 +119,10 @@ function show() {
                                     }
                                     content_data.orderNo = select_date_status_content.data[i].orderItemVoList[0].orderNo;
                                     content_data.address = select_date_status_content.data[i].orderItemVoList[0].pack.phoneMessage;
+
+                                    if (content_data.orderNo.address == "") {
+                                        content_data.address = "不详";
+                                    }
                                     content_data.code = select_date_status_content.data[i].orderItemVoList[0].pack.code;
                                     content_data.name = select_date_status_content.data[i].orderItemVoList[0].pack.name;
 
@@ -201,6 +205,10 @@ function show() {
                             }
                             content_data.orderNo = order_detail_content.data.orderNo;
                             content_data.address = order_detail_content.data.orderItemVoList[0].pack.phoneMessage;
+                            if (content_data.orderNo.address == "") {
+                                content_data.address = "不详";
+                            }
+
                             content_data.code = order_detail_content.data.orderItemVoList[0].pack.code;
                             content_data.name = order_detail_content.data.orderItemVoList[0].pack.name;
                             content_data.receiverAddress =
@@ -256,139 +264,135 @@ function show() {
 
         console.log(data);
 
-        if (data.length == 0) {
-            console.log("出现坏数据")
+        if (JSON.stringify(data) == "{}") {
+
+            console.log("无订单信息")
+
         } else {
-            if (JSON.stringify(data) == "{}") {
 
-                console.log("无订单信息")
+            console.log("开始将data数据处理");
+            var Data = json_change(data);  //将json转换为二维数组
+            console.log(Data);
 
-            } else {
+            // console.log(data[0][10]);
+            // 循环数据进行输出
+            var content = document.getElementsByClassName("consult_middle_content")[0];
+            var content_ul = document.getElementsByClassName("order")[0];
+            console.log(Data[0]);
+            var num = Data[0].length - 1;
+            var array_li = new Array();
+            var array_ul = new Array();
+            var btn = [];   //每条查询中的按钮
 
-                console.log("开始将data数据处理");
-                var Data = json_change(data);  //将json转换为二维数组
-                console.log(Data);
+            var child = check_child(content.childNodes);
+            for (i = 1; i < child.length; i++) {
+                content.removeChild(child[i]);
+            }
 
-                // console.log(data[0][10]);
-                // 循环数据进行输出
-                var content = document.getElementsByClassName("consult_middle_content")[0];
-                var content_ul = document.getElementsByClassName("order")[0];
-                console.log(Data[0]);
-                var num = Data[0].length - 1;
-                var array_li = new Array();
-                var array_ul = new Array();
-                var btn = [];   //每条查询中的按钮
-
-                var child = check_child(content.childNodes);
-                for (i = 1; i < child.length; i++) {
-                    content.removeChild(child[i]);
+            for (y = 0; y < Data.length; y++) {
+                array_ul[y] = document.createElement("ul");
+                for (i = 0; i < num; i++) {    //对数据进行循环输出
+                    array_li[i] = document.createElement("li");
+                    array_li[i].innerHTML = Data[y][i];
+                    // if (i == 1 || i == 4 || i == 8) {
+                    //     array_li[i].style["width"] = 7 + "%";
+                    // }
+                    array_ul[y].appendChild(array_li[i]);
                 }
 
-                for (y = 0; y < Data.length; y++) {
-                    array_ul[y] = document.createElement("ul");
-                    for (i = 0; i < num; i++) {    //对数据进行循环输出
-                        array_li[i] = document.createElement("li");
-                        array_li[i].innerHTML = Data[y][i];
-                        // if (i == 1 || i == 4 || i == 8) {
-                        //     array_li[i].style["width"] = 7 + "%";
-                        // }
-                        array_ul[y].appendChild(array_li[i]);
-                    }
+                array_ul[y].className = "order";
 
-                    array_ul[y].className = "order";
+                //生命一个数组保存按钮所改变的三个值
+                var state = ["已下单", "已接单", "已签收"];
 
-                    //生命一个数组保存按钮所改变的三个值
-                    var state = ["已下单", "已接单", "已签收"];
+                //添加按钮
+                btn[y] = document.createElement("input");
+                btn[y].style.display = "inline-block";
+                btn[y].type = "button";
+                btn[y].value = Data[y][num - 1];
+                btn[y].className = "btn_modify";
 
-                    //添加按钮
-                    btn[y] = document.createElement("input");
-                    btn[y].style.display = "inline-block";
-                    btn[y].type = "button";
-                    btn[y].value = Data[y][num - 1];
-                    btn[y].className = "btn_modify";
+                array_ul[y].appendChild(btn[y]);
+                content.appendChild(array_ul[y]);
 
-                    array_ul[y].appendChild(btn[y]);
-                    content.appendChild(array_ul[y]);
-
-                    //点击事件发生
-                    (function (a) {
-                        btn[y].onclick = function () {
-                            //查询当前订单状态
-                            var now_state = Data[a][num - 1];   //目前订单状态 
-                            console.log("目前的订单状态" + now_state);
-                            var index_state = -1;                   //目前订单状态下标
-                            for (var i = 0; i < state.length; i++) {
-                                if (state[i] == now_state) {
-                                    index_state = i;
-                                }
+                //点击事件发生
+                (function (a) {
+                    btn[y].onclick = function () {
+                        //查询当前订单状态
+                        var now_state = Data[a][num - 1];   //目前订单状态 
+                        console.log("目前的订单状态" + now_state);
+                        var index_state = -1;                   //目前订单状态下标
+                        for (var i = 0; i < state.length; i++) {
+                            if (state[i] == now_state) {
+                                index_state = i;
                             }
-
-                            if (index_state == state.length - 1) {     //当目前订单状态下标已经到达末尾
-                                index_state = -1;
-                            }
-
-                            btn[a].value = state[index_state + 1];   //同步按钮中数据
-                            Data[a][num - 1] = state[index_state + 1];  //同步Data中数据
-                            for (var item in data) {                  //同步data中数据
-                                if (item == a) {
-                                    for (var i in data[item]) {
-                                        if (i == "state") {
-                                            data[item][i] = state[index_state + 1];
-                                        }
-                                    }
-                                }
-                            }
-
-                            content.getElementsByTagName("ul")[a + 1].getElementsByTagName("li")[num - 1].innerHTML = state[index_state + 1];   //同步显示列表中数据
-
-                            change_id = Data[a][1];
-                            console.log("点击的订单id：" + change_id);
-
-                            if (state[index_state + 1] == "已下单") {
-                                change_status = 10;
-                            } else if (state[index_state + 1] == "已接单") {
-                                change_status = 20;
-                            } else {
-                                change_status = 30;
-                            }
-                            console.log("点击之后的订单状态" + state[index_state + 1] + change_status);
-
-
-                            console.log("开始进行更改订单状态")
-                            // 2. 设置回调监听
-                            change_status_Http.onreadystatechange = function () {
-
-                                if (4 === change_status_Http.readyState && 200 === change_status_Http.status) {
-                                    //局部刷新
-                                    // console.log(xmlLoginHttp.responseText);
-                                    change_status_content = JSON.parse(change_status_Http.responseText);
-
-                                    console.log(change_status_content);
-
-                                    if (change_status_content.code == 0) {
-                                        alert("更新状态成功，请刷新")
-                                    }
-
-                                }
-                            };
-
-                            // 3. 打开一个连接
-                            change_status_Http.open('POST', change_status_URL);
-
-                            // 4. 设置请求头
-                            change_status_Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                            // 5. 发送
-                            change_status_Http.send('orderNo=' + change_id + '&status=' + change_status); //请求体body，用&分隔。引用：req.body.name
-
                         }
 
+                        if (index_state == state.length - 1) {     //当目前订单状态下标已经到达末尾
+                            index_state = -1;
+                        }
 
-                    })(y);
+                        btn[a].value = state[index_state + 1];   //同步按钮中数据
+                        Data[a][num - 1] = state[index_state + 1];  //同步Data中数据
+                        for (var item in data) {                  //同步data中数据
+                            if (item == a) {
+                                for (var i in data[item]) {
+                                    if (i == "state") {
+                                        data[item][i] = state[index_state + 1];
+                                    }
+                                }
+                            }
+                        }
 
-                }
+                        content.getElementsByTagName("ul")[a + 1].getElementsByTagName("li")[num - 1].innerHTML = state[index_state + 1];   //同步显示列表中数据
+
+                        change_id = Data[a][1];
+                        console.log("点击的订单id：" + change_id);
+
+                        if (state[index_state + 1] == "已下单") {
+                            change_status = 10;
+                        } else if (state[index_state + 1] == "已接单") {
+                            change_status = 20;
+                        } else {
+                            change_status = 30;
+                        }
+                        console.log("点击之后的订单状态" + state[index_state + 1] + change_status);
+
+
+                        console.log("开始进行更改订单状态")
+                        // 2. 设置回调监听
+                        change_status_Http.onreadystatechange = function () {
+
+                            if (4 === change_status_Http.readyState && 200 === change_status_Http.status) {
+                                //局部刷新
+                                // console.log(xmlLoginHttp.responseText);
+                                change_status_content = JSON.parse(change_status_Http.responseText);
+
+                                console.log(change_status_content);
+
+                                if (change_status_content.code == 0) {
+                                    alert("更新状态成功，请刷新")
+                                }
+
+                            }
+                        };
+
+                        // 3. 打开一个连接
+                        change_status_Http.open('POST', change_status_URL);
+
+                        // 4. 设置请求头
+                        change_status_Http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                        // 5. 发送
+                        change_status_Http.send('orderNo=' + change_id + '&status=' + change_status); //请求体body，用&分隔。引用：req.body.name
+
+                    }
+
+
+                })(y);
 
             }
+
         }
 
     }, 2000)
@@ -413,7 +417,7 @@ window.onload = function () {
     for (var i = 2018; i < 2030; i++) {
         years.options.add(new Option(i, i));
     }
-    
+
     //设置当前年份为默认年
     years.options[nowYear - 2018].selected = true;
 
