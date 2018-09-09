@@ -95,6 +95,7 @@ function show() {
                     if (select_date_status_content.code == 1) {
 
                         alert("身份信息过期，请重新登录")
+
                     } else {
 
                         if (select_date_status_content.data.length == 0) {
@@ -106,9 +107,47 @@ function show() {
                                  * 处理坏数据
                                  */
                                 if (JSON.stringify(select_date_status_content.data[i].shipping) == "null") {
+
                                     console.log("出现坏数据");
-                                    alert("出现坏数据，多条订单出现空地址");
-                                    break;
+
+                                    alert("出现坏数据，多条订单出现空地址，但仍会显示");
+
+                                    var content_data = {};  //重新创建一个新的对象
+
+                                    content_data.createTime = select_date_status_content.data[i].orderItemVoList[0].pack.detail;
+                                    if (content_data.createTime == "") {
+                                        content_data.createTime = "备注为空";
+                                    }
+
+                                    content_data.orderNo = select_date_status_content.data[i].orderItemVoList[0].orderNo;
+                                    content_data.address = select_date_status_content.data[i].orderItemVoList[0].pack.phoneMessage;
+
+
+                                    content_data.address = "快递信息为空";
+
+
+                                    content_data.code = select_date_status_content.data[i].orderItemVoList[0].pack.code;
+                                    content_data.name = select_date_status_content.data[i].orderItemVoList[0].pack.name;
+
+                                    content_data.receiverAddress = "不祥";
+                                    content_data.receiverMobile = "不详";
+
+                                    content_data.exceptTime = select_date_status_content.data[i].orderItemVoList[0].pack.exceptTime;
+                                    content_data.orderCount = select_date_status_content.data[i].orderCount;
+
+                                    if (select_date_status_content.data[i].status == 10) {
+                                        content_data.status = "已下单";
+                                    } else if (select_date_status_content.data[i].status == 20) {
+                                        content_data.status = "已接单";
+                                    } else {
+                                        content_data.status = "已签收";
+                                    }
+
+                                    content_data.modify_status = content_data.status;
+
+                                    data1[i] = content_data;
+
+                                    // break;
 
                                 } else {
                                     var content_data = {};  //重新创建一个新的对象
@@ -120,9 +159,10 @@ function show() {
                                     content_data.orderNo = select_date_status_content.data[i].orderItemVoList[0].orderNo;
                                     content_data.address = select_date_status_content.data[i].orderItemVoList[0].pack.phoneMessage;
 
-                                    if (content_data.orderNo.address == "") {
+                                    if (content_data.address == "") {
                                         content_data.address = "不详";
                                     }
+
                                     content_data.code = select_date_status_content.data[i].orderItemVoList[0].pack.code;
                                     content_data.name = select_date_status_content.data[i].orderItemVoList[0].pack.name;
 
@@ -158,7 +198,8 @@ function show() {
                     }
 
 
-
+                } else if (4 == select_date_status_Http.readyState && select_date_status_Http.status == 500) {
+                    alert("服务器返回500错误");
                 }
 
             }
@@ -266,6 +307,7 @@ function show() {
 
         if (JSON.stringify(data) == "{}") {
 
+            alert("无订单信息");
             console.log("无订单信息")
 
         } else {
